@@ -1,3 +1,7 @@
+'''
+Loading input, preprocessing and defining functions to be used for all models.
+'''
+
 import pandas, sklearn, numpy as np
 from datetime import datetime as dt
 from dateutil.parser import parse
@@ -43,3 +47,27 @@ def init():
         '''
 
     return ipdata.drop([max(ipdata.index)])
+
+def accuracy(predicted, actual, margin=10):
+    '''
+    predicted:  iterable
+    actual:     iterable
+    margin:     (optional) integer
+
+    Compares values in "predicted" with corresponding values in "actual" and if their difference is less than "margin", considers it to be correct.
+
+    Returns:    Percentage of correct predictions
+
+    Note:   "predicted" and "actual" must be of the same length.
+    '''
+
+    if len(predicted) != len(actual):
+        raise ValueError('"predicted list" and "actual" list are of unequal lengths!')
+
+    total = len(predicted)
+    correct = 0
+    for p, a in zip(predicted, actual):
+        if (p - a) < margin:
+            correct += 1
+
+    return (correct/total)
