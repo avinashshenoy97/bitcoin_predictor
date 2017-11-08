@@ -1,3 +1,7 @@
+'''
+Single hidden layer LSTM RNN
+'''
+
 from init import *
 import numpy
 import matplotlib.pyplot as plt
