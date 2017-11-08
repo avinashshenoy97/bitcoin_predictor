@@ -40,11 +40,18 @@ del df['Date']
 # Target
 target = pandas.DataFrame(ipdata, columns = ["next"])
 
-X = df
-y = target['next']
+row = round(0.8 * len(ipdata.index))
+trainX = df[:row]
+#np.random.shuffle(train)
+trainY = df[row:]
+testX = target[:row]['next']
+testY = target[row:]['next']
+
+X = trainX
+y = testX
 
 lm = linear_model.LinearRegression()
 model = lm.fit(X, y)
-predictions = lm.predict(X)
+predictions = lm.predict(trainY)
 
-print("Accuracy with Multiple Linear Regression:", accuracy(predictions, y) * 100, "%")
+print("Accuracy with Multiple Linear Regression:", accuracy(predictions, testY) * 100, "%")
