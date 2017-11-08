@@ -12,11 +12,11 @@ test_data = ndata
 train_data = ndata.sample(n = nrow1)    # training data
 test_data = ndata.sample(n = nrow2)     # testing data
 
-model1 = svm.SVR(kernel='rbf', C = 1e4, gamma = 0.3)     # radial basis function kernel, dosent work well with linear kernel
+model1 = svm.SVR(kernel='rbf', C = 1e4, gamma = 0.3)     # radial basis function kernel
 model1 = model1.fit(train_data.drop('next', 1), train_data['next'])   # fit the model
 res1 = model1.predict(test_data.drop('next', 1))
 
-model2 = svm.SVR(kernel='poly', C = 1e4, degree = 2)     # radial basis function kernel, dosent work well with linear kernel
+model2 = svm.SVR(kernel='poly', C = 1e4, degree = 2)     # polynomial function kernel
 model2 = model2.fit(train_data.drop('next', 1), train_data['next'])   # fit the model
 res2 = model2.predict(test_data.drop('next', 1))
 
