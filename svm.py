@@ -24,7 +24,7 @@ acc1 = accuracy(res1, test_data['next'])  # find the accuracy for radial kernel
 acc2 = accuracy(res2, test_data['next'])  # find the accuracy for polynomial kernel
 
 print("Accuracy for radial basis function kernel :",acc1 * 100) 
-print("Accuracy for linear function kernel :",acc2 * 100)
+print("Accuracy for polynomial function kernel :",acc2 * 100)
 
 # As the data is not linear, no convergence is obtained in case of a linear kernel
 
