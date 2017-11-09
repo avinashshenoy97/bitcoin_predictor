@@ -2,9 +2,10 @@
 Loading input, preprocessing and defining functions to be used for all models.
 '''
 
-import pandas, sklearn, numpy as np
+import math, pandas, sklearn, numpy as np
 from datetime import datetime as dt
 from dateutil.parser import parse
+import matplotlib.pyplot as plt
 
 def init():
     # Load input data
@@ -67,7 +68,19 @@ def accuracy(predicted, actual, margin=10):
     total = len(predicted)
     correct = 0
     for p, a in zip(predicted, actual):
-        if (p - a) < margin:
+        if math.fabs(p - a) < margin:
             correct += 1
 
     return (correct/total)
+
+def plot_results(predicted_data, true_data):
+    '''
+    Plot predicted vs. true data using matplotlib
+    '''
+
+    fig = plt.figure(facecolor='white')
+    ax = fig.add_subplot(111)
+    ax.plot(true_data, label='True Data')
+    plt.plot(predicted_data, label='Prediction')
+    plt.legend()
+    plt.show()
