@@ -65,5 +65,6 @@ trainPredict = scaler.inverse_transform(trainPredict)
 trainY = scaler.inverse_transform([trainY])
 testPredict = scaler.inverse_transform(testPredict)
 testY = scaler.inverse_transform([testY])
-
-print("Accuracy of LSTM:", accuracy([x for x in testPredict], testY[0]))
+testPredict = [x for x in testPredict]
+print("Accuracy of LSTM:", accuracy(testPredict, testY[0]))
+plot_results(testPredict, testY[0])

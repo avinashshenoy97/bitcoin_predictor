@@ -77,10 +77,8 @@ def plot_results(predicted_data, true_data):
     '''
     Plot predicted vs. true data using matplotlib
     '''
-
-    fig = plt.figure(facecolor='white')
-    ax = fig.add_subplot(111)
-    ax.plot(true_data, label='True Data')
-    plt.plot(predicted_data, label='Prediction')
+    plt.plot(range(len(predicted_data)), predicted_data, label='Prediction')
+    plt.plot(range(len(true_data)), true_data, label='True Data')
     plt.legend()
     plt.show()
+    return

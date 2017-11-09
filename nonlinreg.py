@@ -39,7 +39,7 @@ model.fit(trainSet, trainDependant)
 testSet_t = poly.fit_transform(testSet)
 
 # Predict for test set
-prediction = model.predict(testSet_t)
+prediction = [float(x) for x in model.predict(testSet_t)]
 
 print("Accuracy =", accuracy(list(prediction), list(testDependant)) * 100, "%")
 plot_results(list(prediction), list(testDependant))

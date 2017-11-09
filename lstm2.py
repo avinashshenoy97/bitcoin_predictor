@@ -125,12 +125,4 @@ def plot_results_multiple(predicted_data, true_data, prediction_len):
 
 #plot_results_multiple(predictions, testY, 50)
 
-def plot_results(predicted_data, true_data):
-    fig = plt.figure(facecolor='white')
-    ax = fig.add_subplot(111)
-    ax.plot(true_data, label='True Data')
-    plt.plot(predicted_data, label='Prediction')
-    plt.legend()
-    plt.show()
-
 plot_results(predicted, testY)

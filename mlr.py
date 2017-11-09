@@ -55,3 +55,4 @@ model = lm.fit(X, y)
 predictions = lm.predict(trainY)
 
 print("Accuracy with Multiple Linear Regression:", accuracy(predictions, testY) * 100, "%")
+plot_results(predictions, testY)

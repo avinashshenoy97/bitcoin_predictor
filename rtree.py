@@ -1,5 +1,9 @@
+'''
+Regression Tree
+'''
+
 from sklearn import tree
-from init import init, accuracy
+from init import *
 
 data = init()
 ndata = data.drop('Date', 1)    # Drop the date column
@@ -18,4 +22,5 @@ res = model.predict(test_data.drop('next', 1))
 
 acc = accuracy(res, test_data['next'])  # find the accuracy
 
-print("Accuracy :",acc)
+print("Accuracy :",acc*100, "%")
+plot_results(res, test_data['next'])

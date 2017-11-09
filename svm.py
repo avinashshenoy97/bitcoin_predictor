@@ -1,5 +1,7 @@
 from sklearn import svm
+import matplotlib.pyplot as plt
 from init import init, accuracy
+
 
 data = init()
 ndata = data.drop('Date', 1)
@@ -25,6 +27,9 @@ acc2 = accuracy(res2, test_data['next'])  # find the accuracy for polynomial ker
 
 print("Accuracy for radial basis function kernel :",acc1 * 100) 
 print("Accuracy for polynomial function kernel :",acc2 * 100)
+
+plt.plot(range(len(res1)), res1, label = "Predicted_radial")
+plot_results(res2, test_data['next'])
 
 # As the data is not linear, no convergence is obtained in case of a linear kernel
 
