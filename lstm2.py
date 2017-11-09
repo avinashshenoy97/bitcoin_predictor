@@ -91,7 +91,7 @@ testY = result[int(row):, -1]
 trainX = np.reshape(trainX, (trainX.shape[0], trainX.shape[1], 1))
 testX = np.reshape(testX, (testX.shape[0], testX.shape[1], 1))  
 
-epochs = 200
+epochs = 300
 
 model = Sequential()
 layers = [1, 50, 100, 1]
@@ -101,16 +101,17 @@ model.add(Dropout(0.2))
 model.add(LSTM(layers[2],return_sequences=False))
 model.add(Dropout(0.2))
 model.add(Dense(output_dim=layers[3]))
-model.add(Activation("linear"))
+model.add(Activation("tanh"))
 model.compile(loss="mse", optimizer="rmsprop")
 
 model.fit(trainX, trainY, batch_size=512, nb_epoch=epochs, validation_split=0.05)
 
-predictions = predict_sequences_multiple(model, testX, sequence_length, 50)
+#predictions = predict_sequences_multiple(model, testX, sequence_length, 50)
 #predicted = predict_sequence_full(model, testX, sequence_length)
-#predicted = predict_point_by_point(model, testX)
+predicted = predict_point_by_point(model, testX)
 
-#print(accuracy(predictions, testX))
+print(accuracy(predicted, testY))
+
 def plot_results_multiple(predicted_data, true_data, prediction_len):
     fig = plt.figure(facecolor='white')
     ax = fig.add_subplot(111)
@@ -122,7 +123,7 @@ def plot_results_multiple(predicted_data, true_data, prediction_len):
         plt.legend()
     plt.show()
 
-plot_results_multiple(predictions, testY, 50)
+#plot_results_multiple(predictions, testY, 50)
 
 def plot_results(predicted_data, true_data):
     fig = plt.figure(facecolor='white')
@@ -132,4 +133,4 @@ def plot_results(predicted_data, true_data):
     plt.legend()
     plt.show()
 
-#plot_results(predicted, testY)
+plot_results(predicted, testY)
