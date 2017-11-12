@@ -24,3 +24,4 @@ gbm = xgb.XGBClassifier(max_depth = 3, n_estimators = 300, learning_rate=0.2).fi
 predictions = gbm.predict(test_data_m)  # predict the values
 
 print("Accuracy of xgboost :", accuracy(predictions, test_data['next']) * 100)  # calculate and print accuracy
+plot_results(predictions, test_data['next'])
