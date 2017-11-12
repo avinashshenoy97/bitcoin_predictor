@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def init():
     # Load input data
-    ipdata = pandas.read_csv("data/bitcoin_dataset.csv")
+    ipdata = pandas.read_csv("data/bitcoin_dataset.csv",  parse_dates=['Date'])
 
     # Drop rows with NaN
     for key in ipdata:
@@ -24,8 +24,8 @@ def init():
 
     # Convert Date field to Python Date type
     #ipdata['date'] = pandas.Series([dt(1,1,1,1,1,1)] * len(ipdata['btc_market_price']), index = ipdata.index)
-    for ind in ipdata.index:
-        ipdata.ix[ind, 'Date'] = parse(ipdata['Date'][ind])
+    #for ind in ipdata.index:
+    #    ipdata.ix[ind, 'Date'] = parse(ipdata['Date'][ind])
 
     # Add next day's price
     for ind in ipdata.index:
