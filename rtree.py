@@ -3,6 +3,7 @@ Regression Tree
 '''
 
 from sklearn import tree
+import numpy as np
 from init import *
 
 data = init()
@@ -20,7 +21,23 @@ model = tree.DecisionTreeRegressor()
 model = model.fit(train_data.drop('next', 1), train_data['next'])   # fit the model
 res = model.predict(test_data.drop('next', 1))  
 
-acc = accuracy(res, test_data['next'])  # find the accuracy
+print('Accuracy stats of Regression Tree Model : ')
+accuracyStats(res, test_data['next'])
+plot_results(res, test_data['next'], 'Regression Tree Predictions')
 
-print("Accuracy :",acc*100, "%")
-plot_results(res, test_data['next'])
+errors = [math.fabs(x-y) for x,y in zip(res, test_data['next'])]
+print("Average error : ", np.average(errors))
+plt.plot(errors)
+plt.title('Regression Tree Errors')
+plt.show()
+
+
+'''
+Our Results :
+Accuracy stats of Regression Tree Model :
+Accuracy with a margin of 100$ :  0.9909502262443439
+Accuracy with a margin of 50$ :  0.9909502262443439
+Accuracy with a margin of 25$ :  0.9819004524886877
+Accuracy with a margin of 10$ :  0.9592760180995475
+Average error :  4.43136073454
+'''

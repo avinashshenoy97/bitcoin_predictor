@@ -1,10 +1,12 @@
 from sklearn import svm
 from ainit import *
+from init import *
 from statsmodels.tsa.arima_model import ARIMA
+from statsmodels.tsa.stattools import acf, pacf
 import matplotlib.pyplot as plt
 
 
-ipdata = init()
+ipdata = ainit()
 ts = pandas.DataFrame(ipdata[['Date', 'next']])
 ts.set_index(keys = 'Date', drop = True, inplace = True)
 ts = ts['next']
@@ -49,7 +51,9 @@ model_fit = model.fit(disp = 0)
 # plot residual errors
 residuals = pandas.DataFrame(model_fit.resid)
 residuals.plot()
+plt.title('Residual Errors')
 plt.show()
+plt.title('KDE Residual Errors')
 residuals.plot(kind = 'kde')
 plt.show()
 
@@ -67,9 +71,27 @@ for t in range(len(test)):
     predictions.append(yhat)
     obs = test[t]
     history.append(obs)
-    print('predicted=%f, expected=%f' % (yhat, obs))
+    #print('predicted=%f, expected=%f' % (yhat, obs))
 
-plot_results(predictions, test)     # Plot the results
-acc = accuracy(predictions, test)   # calculate accuracy
+plot_results(predictions, test, 'ARIMA Model Predictions')     # Plot the results
+# Calculate accuracy
+print("Accuracy stats of ARIMA Model :")
+accuracyStats(predictions, test)
 
-print("Accuracy for ARIMA : ", acc)
+errors = [math.fabs(x-y) for x,y in zip(predictions, test)]
+print("Average error : ", np.average(errors))
+plt.plot(errors, label='Error')
+plt.title('ARIMA Model: Days Ahead Vs. Errors')
+plt.show()
+
+
+'''
+Our Results :
+
+Accuracy stats of ARIMA Model :
+Accuracy with a margin of 100$ :  0.990990990990991
+Accuracy with a margin of 50$ :  0.9234234234234234
+Accuracy with a margin of 25$ :  0.7882882882882883
+Accuracy with a margin of 10$ :  0.5945945945945946
+Average error :  16.3685453677
+'''

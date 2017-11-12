@@ -23,5 +23,18 @@ test_data_m = test_data_m[0:test_data.shape[0]].as_matrix()
 gbm = xgb.XGBClassifier(max_depth = 3, n_estimators = 300, learning_rate=0.2).fit(train_data_m, train_data['next']) # fit the model
 predictions = gbm.predict(test_data_m)  # predict the values
 
-print("Accuracy of xgboost :", accuracy(predictions, test_data['next']) * 100)  # calculate and print accuracy
-plot_results(predictions, test_data['next'])
+print("Accuracy stats of xgboost :")  # calculate and print accuracy
+accuracyStats(predictions, test_data['next'])
+plot_results(predictions, test_data['next'], 'XGBoost Predictions')
+
+errors = [math.fabs(x-y) for x,y in zip(predictions, test_data['next'])]
+print("Average error : ", np.average(errors))
+plt.plot(errors, label='Error')
+plt.title('XGBoost Errors')
+plt.show()
+
+
+'''
+Our Results :
+
+'''

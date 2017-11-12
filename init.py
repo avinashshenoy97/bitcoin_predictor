@@ -73,10 +73,11 @@ def accuracy(predicted, actual, margin=100):
 
     return (correct/total)
 
-def plot_results(predicted_data, true_data):
+def plot_results(predicted_data, true_data, title=''):
     '''
     Plot predicted vs. true data using matplotlib
     '''
+    plt.title(title)
     plt.plot(range(len(predicted_data)), predicted_data, label='Prediction')
     plt.plot(range(len(true_data)), true_data, label='True Data')
     plt.legend()

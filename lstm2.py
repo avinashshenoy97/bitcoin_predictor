@@ -117,8 +117,21 @@ plot_results(predicted, testY)
 # Plot errors
 errors = [math.fabs(x-y) for x,y in zip(news, newr)]
 print("Average error : ", np.average(errors))
-newPlot()
 plt.plot(errors, label='Error')
 plt.title('Days Ahead Vs. Error')
 plt.legend()
 plt.show()
+
+
+'''
+Our results :
+
+Time to compile :  0:00:00.028948
+Time to train :  0:03:31.755918
+Accuracy stats of LSTM :
+Accuracy with a margin of 100$ :  1.0
+Accuracy with a margin of 50$ :  1.0
+Accuracy with a margin of 25$ :  0.985781990521327
+Accuracy with a margin of 10$ :  0.8767772511848341
+Average error :  4.88935209109
+'''

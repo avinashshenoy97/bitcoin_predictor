@@ -37,12 +37,14 @@ data = correlation(ipdata, 0.75)
 # Predictor variables
 df = data.copy(deep = True)
 del df['Date']
+
 # Target
 target = pandas.DataFrame(ipdata, columns = ["next"])
 
+# Split into training and test sets; 80:20 split
 row = round(0.8 * len(ipdata.index))
+df = df.sample(frac=1).reset_index(drop=True)
 trainX = df[:row]
-#np.random.shuffle(train)
 trainY = df[row:]
 testX = target[:row]['next']
 testY = target[row:]['next']
@@ -50,9 +52,31 @@ testY = target[row:]['next']
 X = trainX
 y = testX
 
+# Build model and make predictions
 lm = linear_model.LinearRegression()
 model = lm.fit(X, y)
 predictions = lm.predict(trainY)
 
-print("Accuracy with Multiple Linear Regression:", accuracy(predictions, testY) * 100, "%")
-plot_results(predictions, testY)
+# Print stats
+print("Accuracy stats of Multiple Linear Regression :")
+accuracyStats(predictions, testY)
+plot_results(predictions, testY, 'Multiple Linear Regression')
+
+errors = [math.fabs(x-y) for x,y in zip(predictions, testY)]
+print("Average error : ", np.average(errors))
+plt.plot(errors, label='Error')
+plt.title('Days Ahead Vs. Error')
+plt.legend()
+plt.show()
+
+
+'''
+Our results :
+
+Accuracy stats of Multiple Linear Regression :
+Accuracy with a margin of 100$ :  0.027149321266968326
+Accuracy with a margin of 50$ :  0.013574660633484163
+Accuracy with a margin of 25$ :  0.00904977375565611
+Accuracy with a margin of 10$ :  0.0
+Average error :  356.525268295
+'''
