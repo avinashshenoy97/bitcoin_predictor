@@ -3,6 +3,41 @@ from ainit import *
 from statsmodels.tsa.arima_model import ARIMA
 import matplotlib.pyplot as plt
 
+
+ipdata = init()
+ts = pandas.DataFrame(ipdata[['Date', 'next']])
+ts.set_index(keys = 'Date', drop = True, inplace = True)
+ts = ts['next']
+
+# Differencing
+ts_shift_diff = ts - ts.shift()
+ts_shift_diff.dropna(inplace=True)
+
+# Auto Correlation
+acf = acf(ts_shift_diff, nlags=20)
+# Partial Auto Correlation
+pacf = pacf(ts_shift_diff, nlags=20, method='ols')
+
+#Plot ACF: 
+plt.subplot(121) 
+plt.plot(acf)
+plt.axhline(y=0,linestyle='--',color='gray')
+plt.axhline(y=-1.96/np.sqrt(len(ts_shift_diff)),linestyle='--',color='gray')
+plt.axhline(y=1.96/np.sqrt(len(ts_shift_diff)),linestyle='--',color='gray')
+plt.title('Autocorrelation Function')
+
+#Plot PACF:
+plt.subplot(122)
+plt.plot(pacf)
+plt.axhline(y=0,linestyle='--',color='gray')
+plt.axhline(y=-1.96/np.sqrt(len(ts_shift_diff)),linestyle='--',color='gray')
+plt.axhline(y=1.96/np.sqrt(len(ts_shift_diff)),linestyle='--',color='gray')
+plt.title('Partial Autocorrelation Function')
+plt.tight_layout()
+
+plt.show()
+
+# ARIMA Model
 data = ainit()
 
 data = data[['Date', 'next']]

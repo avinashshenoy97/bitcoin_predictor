@@ -6,3 +6,4 @@ pandas
 keras
 matplotlib
 tensorflow
+statsmodels
