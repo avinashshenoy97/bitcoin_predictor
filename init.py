@@ -49,7 +49,7 @@ def init():
 
     return ipdata.drop([max(ipdata.index)])
 
-def accuracy(predicted, actual, margin=10):
+def accuracy(predicted, actual, margin=100):
     '''
     predicted:  iterable
     actual:     iterable

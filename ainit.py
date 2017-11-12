@@ -49,7 +49,7 @@ def ainit():
 
     return ipdata
 
-def accuracy(predicted, actual, margin=10):
+def accuracy(predicted, actual, margin=100):
     '''
     predicted:  iterable
     actual:     iterable
