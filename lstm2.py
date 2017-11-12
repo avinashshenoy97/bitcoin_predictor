@@ -1,7 +1,7 @@
 '''
 Multiple hidden layer LSTM RNN
 '''
-
+from ainit import *
 from init import *
 import numpy
 import matplotlib.pyplot as plt
@@ -80,7 +80,7 @@ sequence_length -= 1
 result = normalise_windows(result)
 result = np.array(result)
 
-row = round(0.9 * result.shape[0])
+row = round(0.8 * result.shape[0])
 train = result[:int(row), :]
 np.random.shuffle(train)
 trainX = train[:, :-1]
@@ -91,7 +91,7 @@ testY = result[int(row):, -1]
 trainX = np.reshape(trainX, (trainX.shape[0], trainX.shape[1], 1))
 testX = np.reshape(testX, (testX.shape[0], testX.shape[1], 1))  
 
-epochs = 300
+epochs = 400
 
 model = Sequential()
 layers = [1, 50, 100, 1]
@@ -110,7 +110,24 @@ model.fit(trainX, trainY, batch_size=512, nb_epoch=epochs, validation_split=0.05
 #predicted = predict_sequence_full(model, testX, sequence_length)
 predicted = predict_point_by_point(model, testX)
 
-print(accuracy(predicted, testY))
+s = denormalise_windows(predicted)
+r = []
+
+for x in testY :
+    r.append(x[0])
+
+r = denormalise_windows(r)
+
+news = list()
+newr = list()
+
+for x in s :
+    news.append(x[0])
+
+for x in r :
+    newr.append(x[0])
+
+print("Accuracy of LSTM : ", accuracy(news, newr, 100))
 
 def plot_results_multiple(predicted_data, true_data, prediction_len):
     fig = plt.figure(facecolor='white')
@@ -125,4 +142,14 @@ def plot_results_multiple(predicted_data, true_data, prediction_len):
 
 #plot_results_multiple(predictions, testY, 50)
 
+def plot_results(predicted_data, true_data):
+    fig = plt.figure(facecolor='white')
+    ax = fig.add_subplot(111)
+    ax.plot(true_data, label='True Data')
+    plt.plot(predicted_data, label='Prediction')
+    plt.legend()
+    plt.show()
+
 plot_results(predicted, testY)
+
+
