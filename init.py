@@ -82,3 +82,16 @@ def plot_results(predicted_data, true_data):
     plt.legend()
     plt.show()
     return
+
+def newPlot():
+    plt.figure(plt.gcf().number+1)
+
+def accuracyStats(l1, l2, *args):
+    levels = set([100, 50, 25, 10])
+    for l in args:
+        levels.add(l)
+    
+    levels = list(levels)
+    levels.sort(reverse=True)
+    for l in levels:
+        print("Accuracy with a margin of", str(l) + "$ : ", accuracy(l1, l2, l))
