@@ -21,7 +21,7 @@ def init():
     #ipdata['diff'] = pandas.Series([0] * len(ipdata['btc_market_price']), index = ipdata.index)
     #ipdata['dir'] = pandas.Series([0] * len(ipdata['btc_market_price']), index = ipdata.index)
     ipdata['next'] = pandas.Series([0] * len(ipdata['btc_market_price']), index = ipdata.index)
-
+    ipdata = ipdata.drop('btc_trade_volume', 1)
     # Convert Date field to Python Date type
     #ipdata['date'] = pandas.Series([dt(1,1,1,1,1,1)] * len(ipdata['btc_market_price']), index = ipdata.index)
     #for ind in ipdata.index:
