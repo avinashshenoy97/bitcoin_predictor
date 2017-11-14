@@ -8,3 +8,4 @@ matplotlib
 tensorflow
 statsmodels
 xgboost
+plotly
