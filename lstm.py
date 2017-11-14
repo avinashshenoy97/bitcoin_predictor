@@ -55,7 +55,7 @@ model = Sequential()
 model.add(LSTM(4, input_dim=look_back))
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
-model.fit(trainX, trainY, nb_epoch=100, batch_size=1, verbose=2)
+model.fit(trainX, trainY, nb_epoch=400, batch_size=1, verbose=2)
 
 # make predictions
 trainPredict = model.predict(trainX)
@@ -66,5 +66,20 @@ trainY = scaler.inverse_transform([trainY])
 testPredict = scaler.inverse_transform(testPredict)
 testY = scaler.inverse_transform([testY])
 testPredict = [x for x in testPredict]
-print("Accuracy of LSTM:", accuracy(testPredict, testY[0]))
-plot_results(testPredict, testY[0])
+print("Accuracy of Single Layer LSTM:")
+accuracyStats(testPredict, testY[0])
+plot_results(testPredict, testY[0], 'LSTM (Single) Predictions')
+
+plt.plot([math.fabs(x-y) for x,y in zip(testPredict, testY[0])])
+plt.title('LSTM (Single) Errors')
+plt.show()
+
+'''
+Our Results :
+
+Accuracy of Single Layer LSTM:
+Accuracy with a margin of 100$ :  0.9723502304147466
+Accuracy with a margin of 50$ :  0.7603686635944701
+Accuracy with a margin of 25$ :  0.4700460829493088
+Accuracy with a margin of 10$ :  0.11981566820276497
+'''

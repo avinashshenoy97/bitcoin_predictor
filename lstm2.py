@@ -112,7 +112,7 @@ newr = [x[0] for x in r]
 # Plot prediction vs original prices
 print("Accuracy stats of LSTM :")
 accuracyStats(news, newr)
-plot_results(predicted, testY)
+plot_results(news, newr)
 
 # Plot errors
 errors = [math.fabs(x-y) for x,y in zip(news, newr)]
