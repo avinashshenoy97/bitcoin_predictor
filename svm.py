@@ -1,6 +1,6 @@
 from sklearn import svm
 import matplotlib.pyplot as plt
-from init import init, accuracy
+from init import *
 
 
 data = init()
@@ -18,18 +18,19 @@ model1 = svm.SVR(kernel='rbf', C = 1e4, gamma = 0.3)     # radial basis function
 model1 = model1.fit(train_data.drop('next', 1), train_data['next'])   # fit the model
 res1 = model1.predict(test_data.drop('next', 1))
 
-model2 = svm.SVR(kernel='poly', C = 1e3, degree = 2)     # polynomial function kernel
-model2 = model2.fit(train_data.drop('next', 1), train_data['next'])   # fit the model
-res2 = model2.predict(test_data.drop('next', 1))
+#model2 = svm.SVR(kernel='poly', C = 1e3, degree = 2)     # polynomial function kernel
+#model2 = model2.fit(train_data.drop('next', 1), train_data['next'])   # fit the model
+#res2 = model2.predict(test_data.drop('next', 1))
 
-acc1 = accuracy(res1, test_data['next'])  # find the accuracy for radial kernel
-acc2 = accuracy(res2, test_data['next'])  # find the accuracy for polynomial kernel
+print('Accuracy stats of SVM with radial kernel : ')
+accuracyStats(res1, test_data['next'])
+plot_results(res1, test_data['next'], 'SVM with radial kernel')
 
-print("Accuracy for radial basis function kernel :",acc1 * 100) 
-print("Accuracy for polynomial function kernel :",acc2 * 100)
-
-plt.plot(range(len(res1)), res1, label = "Predicted_radial")
-plot_results(res2, test_data['next'])
+errors = [math.fabs(x-y) for x,y in zip(res1, test_data['next'])]
+print("Average error : ", np.average(errors))
+plt.plot(errors)
+plt.title('SVM (radial kernel) Errors')
+plt.show()
 
 # As the data is not linear, no convergence is obtained in case of a linear kernel
 
