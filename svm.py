@@ -24,12 +24,14 @@ res1 = model1.predict(test_data.drop('next', 1))
 
 print('Accuracy stats of SVM with radial kernel : ')
 accuracyStats(res1, test_data['next'])
-plot_results(res1, test_data['next'], 'SVM with radial kernel')
+plot_results(res1, test_data['next'], 'SVM with radial kernel', 'Day', 'Price (in USD)')
 
 errors = [math.fabs(x-y) for x,y in zip(res1, test_data['next'])]
 print("Average error : ", np.average(errors))
 plt.plot(errors)
 plt.title('SVM (radial kernel) Errors')
+plt.xlabel('Day')
+plt.ylabel('Price (in USD)')
 plt.show()
 
 # As the data is not linear, no convergence is obtained in case of a linear kernel

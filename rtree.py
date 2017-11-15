@@ -23,12 +23,14 @@ res = model.predict(test_data.drop('next', 1))
 
 print('Accuracy stats of Regression Tree Model : ')
 accuracyStats(res, test_data['next'])
-plot_results(res, test_data['next'], 'Regression Tree Predictions')
+plot_results(res, test_data['next'], 'Regression Tree Predictions', 'Day', 'Price (in USD)')
 
 errors = [math.fabs(x-y) for x,y in zip(res, test_data['next'])]
 print("Average error : ", np.average(errors))
 plt.plot(errors)
 plt.title('Regression Tree Errors')
+plt.xlabel('Day')
+plt.ylabel('Price (in USD)')
 plt.show()
 
 

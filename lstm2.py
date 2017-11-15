@@ -35,15 +35,6 @@ def denormalise_windows(window_data):
             denormalised_data.append(scaler.inverse_transform([[window]])[0])
     return denormalised_data
 
-def plot_results(predicted_data, true_data):
-    fig = plt.figure(facecolor='white')
-    ax = fig.add_subplot(111)
-    ax.plot(true_data, label='True Data')
-    plt.plot(predicted_data, label='Prediction')
-    plt.legend()
-    plt.title('LSTM Predictions')
-    plt.show()
-
 
 # Configuration
 sequence_length = 50
@@ -112,13 +103,15 @@ newr = [x[0] for x in r]
 # Plot prediction vs original prices
 print("Accuracy stats of LSTM :")
 accuracyStats(news, newr)
-plot_results(news, newr)
+plot_results(news, newr, 'LSTM Predictions', 'Day', 'Price (in USD)')
 
 # Plot errors
 errors = [math.fabs(x-y) for x,y in zip(news, newr)]
 print("Average error : ", np.average(errors))
 plt.plot(errors, label='Error')
 plt.title('Days Ahead Vs. Error')
+plt.xlabel('Day')
+plt.ylabel('Price (in USD)')
 plt.legend()
 plt.show()
 

@@ -60,12 +60,14 @@ predictions = lm.predict(trainY)
 # Print stats
 print("Accuracy stats of Multiple Linear Regression :")
 accuracyStats(predictions, testY)
-plot_results(predictions, testY, 'Multiple Linear Regression')
+plot_results(predictions, testY, 'Multiple Linear Regression', 'Day', 'Price (in USD)')
 
 errors = [math.fabs(x-y) for x,y in zip(predictions, testY)]
 print("Average error : ", np.average(errors))
 plt.plot(errors, label='Error')
 plt.title('Days Ahead Vs. Error')
+plt.xlabel('Day')
+plt.ylabel('Price (in USD)')
 plt.legend()
 plt.show()
 

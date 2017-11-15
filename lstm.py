@@ -68,10 +68,14 @@ testY = scaler.inverse_transform([testY])
 testPredict = [x for x in testPredict]
 print("Accuracy of Single Layer LSTM:")
 accuracyStats(testPredict, testY[0])
-plot_results(testPredict, testY[0], 'LSTM (Single) Predictions')
+plot_results(testPredict, testY[0], 'LSTM (Single) Predictions', 'Day', 'Price (in USD)')
 
-plt.plot([math.fabs(x-y) for x,y in zip(testPredict, testY[0])])
+errors = [math.fabs(x-y) for x,y in zip(testPredict, testY[0])]
+print("Average error : ", numpy.average(errors))
+plt.plot()
 plt.title('LSTM (Single) Errors')
+plt.xlabel('Day')
+plt.ylabel('Price (in USD)')
 plt.show()
 
 '''
@@ -82,4 +86,5 @@ Accuracy with a margin of 100$ :  0.9723502304147466
 Accuracy with a margin of 50$ :  0.7603686635944701
 Accuracy with a margin of 25$ :  0.4700460829493088
 Accuracy with a margin of 10$ :  0.11981566820276497
+Average error :  34.9432634626
 '''
