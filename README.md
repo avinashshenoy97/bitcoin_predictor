@@ -22,7 +22,7 @@ Our primary performance metric for evaluation of the models was to check how clo
 
 Ultimately, the LSTM with multiple hidden layers gave best results with an accuracy of about 90% considering our primary performance metric. Here's a graph depicting the predictions.
 
-![LSTM Predictions Graph](https://github.com/avinashshenoy97/bitcoin_predictor/Resources/LSTM_Multiple_Predictions.png "LSTM Predictions")
+![LSTM Predictions Graph](https://github.com/avinashshenoy97/bitcoin_predictor/blob/master/Resources/LSTM_Multiple_Predictions.png "LSTM Predictions")
 
 
 
